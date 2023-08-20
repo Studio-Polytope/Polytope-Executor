@@ -24,6 +24,13 @@ RUN \
         cp -r testlib/checkers checkers && \
         rm -rf testlib
 RUN \
+        apt install -y cmake && \
+        git clone https://github.com/Studio-Polytope/Polytope-Executor && \
+        cd Polytope-Executor && mkdir build && \
+        cd build && cmake .. && make && \
+        install -m 4755 execute /usr/local/bin && \
+        cd ../.. && rm -rf Polytope-Executor
+RUN \
         mkdir share
 
-CMD ["/bin/bash"]
+CMD ["execute"]
